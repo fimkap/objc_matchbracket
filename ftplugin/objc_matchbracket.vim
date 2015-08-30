@@ -71,9 +71,20 @@ fun s:MatchBracket()
         " becomes "[foo bar: [baz bar]|]" but "[foo bar: baz bar]|" becomes
         " "[[foo bar: baz bar] |]" (where | is the cursor).
         let colonPos = matchend(wrap_text, '^\v(\[\k+\s+)=\k+:\s*') + 1
+        if colonPos == 0
+            " HF: need to deal with [foo bar] baz:bar bay| (becomes [foo bar] baz:[bar bay])
+            let colonPos = matchend(wrap_text, '\v.*\k+:\s*') + 1
+            let rightmost_left_brack_pos = matchend(wrap_text, '\v.*\k+:\s*\[')
+
+            if rightmost_left_brack_pos >= colonPos
+                " HF: we have left bracket for the current item
+                let colonPos = 0
+            endif
+
+        endif
         if colonPos && colonPos > matchend(wrap_text,
                     \ '\v.*\<\@(selector|operator|ope|control):')
-                    \ && left_brack_count != right_brack_count
+                    \ && left_brack_count <= right_brack_count
             let delimPos += colonPos - 1
         endif
 
