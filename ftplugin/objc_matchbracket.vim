@@ -96,7 +96,8 @@ fun s:MatchBracket()
         " Automatically append space if there is only 1 word.
         " E.g., "foo" becomes "[foo ]", and "foo bar" becomes "[foo bar]"
         else
-             let space = line[col] == ']' || wrap_text !~ '^\s*\S\+\s\+' ? ' ' : ''
+            " HF: the left-most bracket don't need to append space
+            let space = (line[col] == ']' && (colonPos > 0)) || wrap_text !~ '^\s*\S\+\s\+' ? ' ' : ''
         endif
 
         exe 'norm! i'.space.']'
