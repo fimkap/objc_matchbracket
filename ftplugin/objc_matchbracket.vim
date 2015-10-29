@@ -79,6 +79,12 @@ fun s:MatchBracket()
             if rightmost_left_brack_pos >= colonPos
                 " HF: we have left bracket for the current item
                 let colonPos = 0
+            else
+                " HF: handle [foo bar] baz:self.bar| (becomes [[foo bar] baz:self.bar]|
+                let dot_pos = matchend(wrap_text, '\v.*\k+:\s*\k+[.]') 
+                if dot_pos > colonPos
+                    let colonPos = 0
+                end
             endif
 
         endif
