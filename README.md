@@ -27,4 +27,4 @@ Certain useful keywords are also wrapped intelligently, for example:
 
 Hope you like it!
 
-TODO: [TextMate](https://github.com/textmate/objective-c.tmbundle/blob/master/Commands/Insert%20Matching%20Start%20Bracket.tmCommand) uses stacks to parse the objc code. However, `qqshfox` uses regular expression to deal with it. Regular expression may not get the bracket locations correctly. `objc_matchbracket` requires completely written to make it work 100%.
+TODO: [TextMate](https://github.com/textmate/objective-c.tmbundle/blob/master/Commands/Insert%20Matching%20Start%20Bracket.tmCommand) uses stacks to parse the objc code. However, `qqshfox` uses regular expression to deal with it. Regular expression may not get the bracket locations correctly. `objc_matchbracket` requires completely rewritten to make it work 100%.
