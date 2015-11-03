@@ -106,10 +106,20 @@ fun s:MatchBracket()
             let space = (line[col] == ']' && (colonPos > 0)) || wrap_text !~ '^\s*\S\+\s\+' ? ' ' : ''
         endif
 
-        exe 'norm! i'.space.']'
-        call cursor(lnum, delimPos)
-        norm! i[
-        call cursor(lnum, col + 4)
+        " HF: YouCompleteMe doesn't allow normal mode command
+        "exe 'norm! i'.space.']'
+        "call cursor(lnum, delimPos)
+        "norm! i[
+        "call cursor(lnum, col + 4)
+        " HF: to be compatible with YouCompleteMe, we have to use insert mode
+        " HF: movement
+        call feedkeys(']', 'n')
+        let offset = col('.') - delimPos + 1
+        let moveLeft = "\<C-o>".offset."h"
+        let moveRight = "\<C-o>".offset."l"
+        call feedkeys(moveLeft, 'n')
+        call feedkeys('[', 'n')
+        call feedkeys(moveRight, 'n')
 
         return ''
     endif
