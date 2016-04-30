@@ -119,7 +119,7 @@ fun s:MatchBracket()
         let moveLeft = "\<C-o>".offset."h"
         let moveRight = "\<C-o>".offset."l"
         call feedkeys(moveLeft, 'n')
-        call feedkeys('[', 'n')
+        call feedkeys('wi[', 'n')
         call feedkeys(moveRight, 'n')
 
         return ''
